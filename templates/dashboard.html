@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard - GiftWrapper</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+.user-cart-wrapper { position:absolute; top:20px; right:20px; display:flex; gap:15px; z-index:100; }
+
+.user-icon, .cart-icon { position:relative; cursor:pointer; }
+
+.dropdown-content, .cart-dropdown {
+    display:none;
+    position:absolute;
+    right:0;
+    top:50px;
+    width:280px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    padding:10px;
+    font-size:14px;
+    z-index:1000;
+}
+
+.cart-dropdown ul { list-style:none; padding:0; margin:0; max-height:400px; overflow-y:auto; }
+
+.cart-dropdown li {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 0;
+    border-bottom:1px solid #eee;
+}
+
+.cart-dropdown img { width:50px; height:50px; object-fit:cover; border-radius:6px; }
+
+.dashboard-container { max-width:1200px; margin:150px auto 50px; text-align:center; }
+
+.dashboard-cards { display:flex; flex-wrap:wrap; justify-content:center; gap:30px; margin-top:40px; }
+
+.card {
+    background:rgba(255,248,245,0.9);
+    padding:20px;
+    width:300px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.card:hover {
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    position:absolute;
+    top:20px;
+    left:20px;
+}
+
+.brand img { width:50px; height:50px; }
+
+.footer-links{
+    width:100%;
+    text-align:center;
+    margin-top:50px;
+    padding-top:15px;
+    border-top:1px solid #ddd;
+}
+
+.footer-links a{
+    color:#333;
+    text-decoration:none;
+    margin:0 8px;
+}
+
+.footer-links a:hover{
+    color:#ff5c92;
+}
+
+/* CHAT BUTTON */
+.chat-btn {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    background: #28a745;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+}
+
+.badge{
+    background:red;
+    color:white;
+    border-radius:50%;
+    padding:3px 7px;
+    font-size:12px;
+    position:absolute;
+    top:-5px;
+    right:-5px;
+}
+
+/* WHATSAPP */
+.whatsapp-float{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+
+.whatsapp-float img{
+    width:60px;
+    border-radius:50%;
+}
+</style>
+</head>
+
+<body style="background-image:url('{{ url_for('static', filename='img/index.png') }}'); background-size:cover;">
+
+<!-- BRAND -->
+<div class="brand">
+    <img src="{{ url_for('static', filename='img/logo.png') }}">
+    <span style="font-size:24px;">GiftWrapper</span>
+</div>
+
+<!-- USER + CART -->
+<div class="user-cart-wrapper">
+
+    <!-- USER -->
+    <div class="user-icon">
+        <img src="{{ url_for('static', filename='img/icon.png') }}" width="40" onclick="toggleUserDropdown()">
+
+        <div id="dropdown" class="dropdown-content">
+            {% if session.get('user_id') %}
+                <a href="/account">My Account</a><br>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a><br>
+                <a href="/register">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- CART -->
+    <div class="cart-icon">
+        <img src="{{ url_for('static', filename='img/cart_icon.png') }}" width="40" id="cart-toggle">
+        <div class="cart-dropdown" id="cart-dropdown"></div>
+    </div>
+
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard-container">
+
+    <h1>Welcome {{ session.get('user_name') }} 👋</h1>
+
+    <div class="dashboard-cards">
+
+        <div class="card" onclick="window.location.href='/products'">
+            <h3>Our Products</h3>
+        </div>
+
+        <div class="card" onclick="window.location.href='/ai_chat'">
+            <h3>AI Suggestions</h3>
+        </div>
+
+        <div class="card" onclick="window.location.href='/orders'">
+            <h3>View Orders</h3>
+        </div>
+
+        <div class="card" onclick="window.location.href='/feedback'">
+            <h3>Customer Feedback</h3>
+        </div>
+
+        <div class="card" onclick="window.location.href='/trending_products'">
+            <h3>Customer Favourites</h3>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-links">
+        <a href="/about">About Us</a> |
+        <a href="/terms_condition">Terms & Conditions</a> |
+        <a href="/cancellation_policy">Cancellation Policy</a>
+    </div>
+
+</div>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/916235301249?text=Hello%20GiftWrapper!"
+target="_blank" class="whatsapp-float">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+</a>
+
+<!-- CHAT -->
+<a href="/chat" class="chat-btn" target="_blank">
+💬 Chat with Admin
+<span id="chatBadge" class="badge" style="display:none;"></span>
+</a>
+
+<script>
+
+// USER DROPDOWN
+function toggleUserDropdown(){
+    const dropdown = document.getElementById('dropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+// CART CLICK
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById('cart-toggle').addEventListener('click', function(e){
+        const dropdown = document.getElementById('cart-dropdown');
+        dropdown.style.display === 'block' ? dropdown.style.display='none' : loadCartDropdown();
+        e.stopPropagation();
+    });
+});
+
+// CLOSE DROPDOWN
+window.addEventListener('click', function(e){
+    if(!e.target.closest('.user-icon')) document.getElementById('dropdown').style.display='none';
+    if(!e.target.closest('.cart-icon')) document.getElementById('cart-dropdown').style.display='none';
+});
+
+// 🔥 CHAT BADGE
+function checkUnread(){
+    fetch("/check_unread")
+    .then(res => res.json())
+    .then(data => {
+        let badge = document.getElementById("chatBadge");
+
+        if(data.count > 0){
+            badge.style.display = "inline-block";
+            badge.innerText = data.count;
+        }else{
+            badge.style.display = "none";
+        }
+    });
+}
+
+setInterval(checkUnread,10000);
+checkUnread();
+
+// ✅ ONLY ONE FUNCTION (FIXED)
+function loadCartDropdown(){
+    fetch('/cart_list')
+    .then(res => res.text())
+    .then(html => {
+        const dropdown = document.getElementById('cart-dropdown');
+        dropdown.innerHTML = html;
+        dropdown.style.display = 'block';
+
+        attachCartEvents();
+    });
+}
+
+function attachCartEvents(){
+
+    document.querySelectorAll('.cart-qty').forEach(input=>{
+        input.addEventListener('input', function(){
+            const id = this.dataset.id;
+            const qty = parseInt(this.value);
+
+            fetch('/update_cart',{
+                method:'POST',
+                headers:{'Content-Type':'application/x-www-form-urlencoded'},
+                body:`id=${id}&quantity=${qty}`
+            }).then(()=>loadCartDropdown());
+        });
+    });
+
+    document.querySelectorAll('.cart-remove').forEach(btn=>{
+        btn.addEventListener('click', function(){
+            const id = this.dataset.id;
+
+            fetch('/update_cart',{
+                method:'POST',
+                headers:{'Content-Type':'application/x-www-form-urlencoded'},
+                body:`id=${id}&quantity=0`
+            }).then(()=>loadCartDropdown());
+        });
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment - GiftWrapper</title>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+body { background: #fff8f5; font-family: 'Poppins', sans-serif; }
+.payment-box { width: 420px; margin: 80px auto; background: #fff; padding: 30px; border-radius: 18px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+.payment-box h2 { text-align: center; color: #ff7f50; }
+.amount { text-align: center; font-size: 20px; margin: 25px 0; }
+.pay-btn { width: 100%; padding: 12px; background: #ff7f50; border: none; color: white; font-size: 16px; border-radius: 12px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="payment-box">
+    <h2>Secure Payment</h2>
+    <div class="amount">Amount to Pay: ₹{{ "%.2f"|format(grand_total) }}</div>
+    <button class="pay-btn" id="payBtn">Pay Now</button>
+</div>
+
+<script>
+var options = {
+    key: "rzp_test_SB8ZkKsm1vSHPn",
+
+    // ✅ Safe number injection
+    amount: {{ (grand_total * 100) | int }},
+
+    currency: "INR",
+    name: "GiftWrapper",
+    description: "Hamper Purchase",
+
+    handler: function (response) {
+
+        var formData = new FormData();
+        formData.append("payment_id", response.razorpay_payment_id);
+
+        // ✅ SAFEST WAY (string safe)
+        formData.append("custom_notes", "{{ custom_notes | escape }}");
+
+        fetch("/payment_process", {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === "success"){
+                window.location.href = "/payment_success?order_id=" + data.order_id;
+            } else {
+                alert(data.message || "Payment failed");
+                window.location.href = "/checkout";
+            }
+        })
+        .catch(() => {
+            window.location.href = "/checkout";
+        });
+    },
+
+    modal: {
+        ondismiss: function(){
+            alert("Payment popup closed");
+        }
+    }
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById('payBtn').onclick = function(e){
+    rzp.open();
+    e.preventDefault();
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ product.title }}</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+body { background:#fff8f5; font-family:Arial; }
+
+.product-details {
+    display:flex;
+    flex-wrap:wrap;
+    gap:40px;
+    max-width:1000px;
+    margin:40px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+}
+
+.image-container {
+    flex:1;
+    max-width:400px;
+    height:400px;
+}
+
+.image-container img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.details { flex:2; }
+
+.details h2 { color:#ff7f50; }
+
+.price { font-size:22px; margin:15px 0; }
+
+.btn {
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:#ff7f50;
+    color:white;
+    cursor:pointer;
+}
+
+/* suggestions */
+.suggestions {
+    max-width:1000px;
+    margin:40px auto;
+}
+
+.suggestions-grid {
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+}
+
+.hamper-card {
+    flex:0 0 220px;
+    background:#fff;
+    padding:15px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.hamper-card img {
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.back-btn {
+    display:inline-block;
+    padding:10px 20px;
+    background:#ff7f50;
+    color:#fff;
+    text-decoration:none;
+    border-radius:25px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.back-btn:hover {
+    background:#ff5722;
+}
+
+.suggestion-title {
+    color:#ff7f50;
+    margin-bottom:15px;
+}
+
+.hamper-card h4 {
+    color:#333;
+    margin:10px 0 5px;
+}
+
+.hamper-card p {
+    color:#ff7f50;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div style="padding:20px;">
+    <a href="/products">⬅ Back</a>
+</div>
+
+<div class="product-details">
+
+    <div class="image-container">
+        <img src="{{ url_for('static', filename=product.image) }}">
+    </div>
+
+    <div class="details">
+        <h2>{{ product.title }}</h2>
+
+        <p class="price">₹{{ product.price }}</p>
+
+        <p>{{ product.description }}</p>
+
+        <div>
+            Quantity:
+            <input type="number" id="qty-{{ product.id }}" value="1" min="1">
+        </div>
+
+        <button class="btn" onclick="addToCart({{ product.id }})">
+            Add to Cart
+        </button>
+    </div>
+
+</div>
+
+<!-- SUGGESTIONS -->
+{% if suggestions %}
+<div class="suggestions">
+
+    <h3>💝 You may also like</h3>
+
+    <div class="suggestions-grid">
+        {% for item in suggestions %}
+        <div class="hamper-card">
+            <a href="/product_details/{{ item.id }}">
+                <img src="{{ url_for('static', filename=item.image) }}">
+                <h4>{{ item.title }}</h4>
+                <p>₹{{ item.price }}</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endif %}
+
+<script>
+function addToCart(id){
+
+    let qty = document.getElementById("qty-" + id).value;
+
+    fetch("/add_to_cart", {
+        method:"POST",
+        headers:{"Content-Type":"application/x-www-form-urlencoded"},
+        body:`id=${id}&quantity=${qty}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+    });
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gift Hamper | Welcome</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+
+/* HAMBURGER MENU */
+.menu-icon{
+position:fixed;
+top:20px;
+right:25px;
+font-size:30px;
+cursor:pointer;
+z-index:1000;
+color:#333;
+}
+
+.menu-box{
+display:none;
+position:fixed;
+top:70px;
+right:25px;
+background:white;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+border-radius:8px;
+width:200px;
+z-index:1000;
+}
+
+.menu-box a{
+display:block;
+padding:12px 15px;
+text-decoration:none;
+color:#333;
+border-bottom:1px solid #eee;
+font-size:15px;
+}
+
+.menu-box a:hover{
+background:#f7f7f7;
+}
+
+.footer-links{
+width:100%;
+text-align:center;
+margin-top:50px;
+padding-top:15px;
+border-top:1px solid #ddd;
+font-size:14px;
+}
+
+.footer-links a{
+color:#333;
+text-decoration:none;
+margin:0 8px;
+}
+
+.footer-links a:hover{
+text-decoration:underline;
+color:#ff5c92;
+}
+
+</style>
+
+<script>
+function toggleMenu(){
+    var menu=document.getElementById("menuBox");
+    menu.style.display = (menu.style.display==="block") ? "none" : "block";
+}
+</script>
+
+</head>
+
+<body class="landing-body">
+
+<!-- HAMBURGER ICON -->
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+<!-- MENU -->
+<div class="menu-box" id="menuBox">
+<a href="/dashboard">Dashboard</a>
+<a href="/products">Products</a>
+<a href="/ai_chat">AI Hamper Suggestion</a>
+<a href="/my_orders">My Orders</a>
+<a href="/feedback">Customer Feedback</a>
+<a href="/logout">Logout</a>
+<a href="/about">About Us</a>
+</div>
+
+<!-- BRAND LOGO -->
+<div class="brand">
+<img src="{{ url_for('static', filename='img/logo.png') }}" alt="GiftWrapper Logo">
+<span>GiftWrapper</span>
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero" style="background-image: url('{{ url_for('static', filename='img/index.png') }}');">
+<div class="hero-overlay">
+<h1>Crafting Thoughtful Gift Hampers</h1>
+<p>Spreading joy through personalized, elegant and meaningful gifts</p>
+<a href="/dashboard" class="hero-btn">Get Started</a>
+</div>
+</section>
+
+<!-- ABOUT / MISSION -->
+<section class="section pastel-bg">
+<h2>Our Mission – Wrapping Emotions, Not Just Gifts</h2>
+<p class="section-text">
+At GiftWrapper, our mission is to transform simple gifts into meaningful experiences.
+We aim to create beautifully curated hampers that express love, appreciation, and celebration.
+By combining thoughtful product selections with elegant designs, we make every gift special.
+We also use smart technology to help customers discover the perfect hamper for any occasion.
+Our goal is to spread joy and create lasting memories through thoughtful gifting.
+</p>
+</section>
+
+<!-- PREVIOUS WORKS -->
+<section class="section">
+
+<h2>Moments We’ve Wrapped with Love</h2>
+
+<div class="gallery">
+<img src="{{ url_for('static', filename='img/hamper1.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper2.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper3.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper4.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper5.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper6.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper7.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper8.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper9.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper13.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper11.jpeg') }}">
+<img src="{{ url_for('static', filename='img/hamper12.jpeg') }}">
+</div>
+
+</section>
+
+<!-- TEAM -->
+<section class="section pastel-bg">
+<h2>The Hearts Behind GiftWrapper</h2>
+
+<div class="team">
+
+<div class="team-card">
+<img src="{{ url_for('static', filename='img/team1.jpeg') }}">
+<h4>Creative Designer</h4>
+<p>Hamper Styling Expert</p>
+</div>
+
+<div class="team-card">
+<img src="{{ url_for('static', filename='img/team2.jpeg') }}">
+<h4>Operations Lead</h4>
+<p>Logistics & Packaging</p>
+</div>
+
+<div class="team-card">
+<img src="{{ url_for('static', filename='img/team3.jpeg') }}">
+<h4>Marketing and Sales Lead</h4>
+<p>Drives brand promotion, Customer engagement</p>
+</div>
+
+<div class="team-card">
+<img src="{{ url_for('static', filename='img/team4.jpeg') }}">
+<h4>Finance and Account Manager</h4>
+<p>Oversees budgeting, Payments</p>
+</div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<footer class="footer">
+<h3>Contact Us</h3>
+
+<p>📍 Address: #1120C, 2nd Floor, Park Lane Building
+Park Lane Road, Near Public College
+Kottayam, Kerala - 686001</p>
+
+<p>📞 Phone: +91 6235301249</p>
+
+<p>📧 Email: giftwrapper00@gmail.com</p>
+
+<div class="footer-links">
+<a href="/about">About Us</a>
+<span>|</span>
+<a href="/terms_condition">Terms & Conditions</a>
+<span>|</span>
+<a href="/cancellation_policy">Cancellation Policy</a>
+</div>
+
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+/* =========================
+   GLOBAL
+========================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fffaf6;
+}
+
+/* =========================
+   LANDING PAGE
+========================= */
+.landing-body {
+    background-color: #fffaf6;
+}
+
+/* HERO */
+.hero {
+    height: 100vh;
+    background-size: cover;
+    background-position: center top; /* push image down */
+    background-attachment: fixed;
+}
+
+.hero-overlay {
+    background-color: rgba(255, 240, 230, 0.65);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-overlay h1 {
+    font-size: 42px;
+    color: #6d6875;
+}
+
+.hero-overlay p {
+    font-size: 18px;
+    margin: 15px 0;
+    color: #555;
+}
+
+.hero-btn {
+    padding: 12px 25px;
+    background-color: #bde0fe;
+    border-radius: 25px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+.section {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.pastel-bg {
+    background-color: #fff1e6;
+}
+
+.section h2 {
+    color: #6d6875;
+    margin-bottom: 20px;
+}
+
+.section-text {
+    max-width: 700px;
+    margin: auto;
+    color: #555;
+}
+
+/* ===== GALLERY IMAGES ===== */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.gallery img {
+    width: 100%;
+    aspect-ratio: 1 / 2;
+    object-fit: cover;
+}
+
+
+
+/* ===== TEAM IMAGES ===== */
+.team {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;   /* allows scroll if screen small */
+}
+
+.team-card {
+    width: 200px;
+    text-align: center;
+}
+
+.team-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    background-color: #bde0fe;
+    padding: 40px;
+    text-align: center;
+    color: #333;
+}
+
+/* =========================
+   BRAND / LOGO
+========================= */
+.brand {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.brand img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.brand span {
+    font-family: Elephant, serif;
+    font-size: 28px;
+    color: #aa9da1;
+}
+
+/* =========================
+   AUTH PAGES
+========================= */
+.auth-body {
+    position: relative;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 241, 230, 0.5);
+    z-index: 0;
+}
+
+.login-card {
+    position: relative;
+    z-index: 1;
+    width: 400px;
+    margin: 80px auto;
+    padding: 50px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.login-logo {
+    position: absolute;
+    top: -25px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+}
+
+.login-logo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.login-card h1 {
+    font-family: Elephant, serif;
+    font-size: 36px;
+    color: #6d6875;
+}
+
+.form-subtext {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.login-card input:focus {
+    border-color: #a0e7e5;
+    box-shadow: 0 0 5px rgba(160,231,229,0.6);
+}
+
+.login-card button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background-color: #a0e7e5;
+    color: white;
+    font-weight: bold;
+}
+
+.switch-form {
+    margin-top: 15px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+.dashboard-container h1 {
+    font-family: Elephant, serif;
+    font-size: 60px;
+    color: #3d3b42;
+    text-align: center;
+    margin-bottom: 85px;
+}
+
+.dashboard-cards {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: rgba(255, 241, 230, 0.95);
+    padding: 25px;
+    border-radius: 20px;
+    width: 250px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* =========================
+   USER & CART ICONS
+========================= */
+.user-cart-wrapper {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    z-index: 9999;
+}
+
+.user-icon,
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.user-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* USER DROPDOWN */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    min-width: 160px;
+    z-index: 10000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-content a:hover {
+    background-color: #ffe8e0;
+}
+
+/* Cart Dropdown Styles */
+#cart-dropdown {
+    display: none;
+    position: absolute;
+    top: 60px; /* adjust if needed based on navbar */
+    right: 20px;
+    width: 25vw; /* ~1/4 of page width */
+    max-width: 400px; /* optional max width */
+    background: #fffaf6; /* pastel background */
+    border: 1px solid #f4d6e0;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    padding: 15px;
+    z-index: 1000;
+    overflow-y: auto;
+    max-height: 400px; /* scroll if too many items */
+}
+
+#cart-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#cart-dropdown li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 5px;
+    border-bottom: 1px solid #eee;
+}
+
+#cart-dropdown li:last-child {
+    border-bottom: none;
+}
+
+#cart-dropdown img {
+    width: 60px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+#cart-dropdown input[type="number"] {
+    width: 50px;
+    padding: 3px 5px;
+    border: 1px solid #f4d6e0;
+    border-radius: 6px;
+}
+
+#cart-dropdown button {
+    padding: 5px 10px;
+    background: #ff7f50;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+#cart-dropdown .checkout-btn {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    background: #ff7f50;
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 500;
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Checkout • GiftWrapper</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+body { background:#f7f8fc; font-family:'Segoe UI',sans-serif; }
+.checkout-container { max-width:1000px; margin:40px auto; background:#fff; padding:30px; border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+h2 { text-align:center; color:#ff7f50; margin-bottom:25px; }
+table{ width:100%; border-collapse:collapse; }
+th{ background:#ff7f50; color:#fff; padding:12px; }
+td{ padding:14px; border-bottom:1px solid #eee; }
+.product{ display:flex; align-items:center; gap:12px; }
+.product img{ width:65px; height:65px; object-fit:cover; border-radius:10px; }
+.summary{ margin-top:25px; text-align:right; font-weight:bold; line-height:1.8; font-size:15px; }
+.checkout-btn{ display:block; margin-left:auto; margin-top:20px; background:#ff7f50; color:#fff; padding:12px 22px; border-radius:10px; font-size:16px; cursor:pointer; }
+.empty { text-align:center; font-size:18px; padding:50px; color:#888; }
+.free-shipping {
+    text-align: center;
+    font-weight: bold;
+    background-color: #ffe8e0;
+    color: #d35400;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 15px auto;
+    max-width: 500px;
+}
+.preference-note {
+    text-align: center;
+    font-weight: bold;
+    background-color: #ffe8e0;
+    color: #d35400;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 15px auto;
+    max-width: 1000px;
+}
+</style>
+</head>
+<body>
+
+<div class="checkout-container">
+<h2>🧺 Checkout</h2>
+
+{% if cart_items %}
+<table>
+<tr>
+<th>Product</th>
+<th>Price</th>
+<th>Qty</th>
+<th>Subtotal</th>
+</tr>
+
+{% for item in cart_items %}
+{% set subtotal = item['price']|float * item['quantity']|int %}
+<tr>
+<td>
+<div class="product">
+
+{% if item['image'].startswith('ai') %}
+    <img src="{{ url_for('static', filename='img/templates/' + item['image']) }}">
+{% else %}
+    <img src="{{ url_for('static', filename='img/' + item['image']) }}">
+{% endif %}
+
+<span>{{ item['title'] }}</span>
+</div>
+</td>
+
+<td>₹{{ "%.2f"|format(item['price']|float) }}</td>
+<td>{{ item['quantity'] }}</td>
+<td>₹{{ "%.2f"|format(subtotal) }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<div class="summary">
+<p>Items Total: ₹{{ "%.2f"|format(items_total) }}</p>
+
+{% if shipping_charge > 0 %}
+<p>Shipping Charge: ₹{{ "%.2f"|format(shipping_charge) }}</p>
+{% else %}
+<p>Shipping Charge: <strong>FREE 🎉</strong></p>
+{% endif %}
+
+<hr>
+<h3>Total Payable: ₹{{ "%.2f"|format(grand_total) }}</h3>
+</div>
+
+<p class="free-shipping">
+    Enjoy free shipping on all orders above ₹1000.
+</p>
+
+<form action="{{ url_for('payment') }}" method="POST">
+<label style="font-weight:bold;">Customization / Preferences</label>
+
+<textarea name="custom_notes"
+placeholder="Eg: Shirt size M, Color theme Black & Gold, Engraving: Happy Birthday John"
+style="width:100%;height:100px;margin-top:10px;border-radius:8px;padding:10px;">{{ custom_notes }}</textarea>
+
+<p class="preference-note">
+<strong>Important:</strong> We value your preferences and will make every effort to design your hamper accordingly. Minor substitutions may occur based on availability, but the overall theme will be maintained.
+</p>
+
+<button type="submit" class="checkout-btn">Proceed to Payment →</button>
+</form>
+
+{% else %}
+<div class="empty">Your cart is empty 💝</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>

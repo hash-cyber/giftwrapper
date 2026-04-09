@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cancellation Policy | GiftWrapper</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.policy-body{
+    background-image:url('{{ url_for("static", filename="img/index.png") }}');
+    background-size:cover;
+    background-position:center;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.policy-card{
+    background:white;
+    max-width:850px;
+    width:100%;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+}
+
+.policy-card h1{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.policy-card h3{
+    margin-top:20px;
+    color:#333;
+}
+
+.policy-card p{
+    color:#555;
+    line-height:1.7;
+    font-size:15px;
+}
+
+.back-home{
+    display:inline-block;
+    margin-top:25px;
+    text-decoration:none;
+    background:#ff7f50;
+    color:white;
+    padding:10px 20px;
+    border-radius:6px;
+}
+
+.back-home:hover{
+    opacity:0.9;
+}
+
+</style>
+</head>
+
+<body class="policy-body">
+
+<div class="policy-card">
+
+<h1>Cancellation Policy</h1>
+
+<p>At GiftWrapper, we strive to ensure customer satisfaction. This Cancellation Policy outlines the conditions under which orders may be cancelled and refunded.</p>
+
+<h3>1. Order Cancellation</h3>
+<p>Orders cannot be cancelled once placed, as processing begins immediately. However, in exceptional cases (such as accidental orders), customers may contact our support team, and requests will be reviewed on a case-by-case basis without guarantee.</p>
+
+<h3>2. Customized Hampers</h3>
+<p>Customized or personalized hampers are specially prepared based on customer requirements. Once the customization process has started, such orders cannot be cancelled or modified.</p>
+
+<h3>3. Cancellation by GiftWrapper</h3>
+<p>We reserve the right to cancel any order due to reasons such as product unavailability, pricing errors, payment issues, or suspected fraudulent activity. In such cases, a full refund will be issued.</p>
+
+<h3>4. Refund Policy</h3>
+<p>If an order is successfully cancelled, refunds will be processed within <b>3–5 business days</b> to the original payment method. The exact time may vary depending on your bank or payment provider.</p>
+
+<h3>5. Late Cancellation Requests</h3>
+<p>Cancellation requests made after the allowed time window may not be accepted. However, customers may contact support for assistance, and requests will be reviewed on a case-by-case basis.</p>
+
+<h3>6. Non-Cancellable Orders</h3>
+<p>Orders that are already shipped, out for delivery, or delivered cannot be cancelled. In such cases, customers may refer to our Return & Refund Policy if applicable.</p>
+
+<h3>7. How to Request Cancellation</h3>
+<p>Customers can request order cancellation through their account dashboard or by contacting customer support with order details.</p>
+
+<h3>8. Contact Support</h3>
+<p>If you need assistance with cancelling an order or have any questions, please contact our support team through the website.</p>
+
+<a class="back-home" href="{{ url_for('index') }}">← Back</a>
+
+</div>
+
+</body>
+</html>

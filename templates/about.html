@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>About Us | GiftWrapper</title>
+
+<style>
+
+body{
+margin:0;
+font-family: 'Segoe UI', sans-serif;
+background:#fffafc;
+color:#333;
+}
+
+/* HERO */
+
+.hero{
+background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('{{ url_for('static', filename='img/about_bg.jpg') }}');
+background-size:cover;
+background-position:center;
+height:350px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+/* CONTAINER */
+
+.container{
+width:90%;
+max-width:1100px;
+margin:auto;
+padding:60px 0;
+}
+
+.section-title{
+text-align:center;
+font-size:30px;
+margin-bottom:20px;
+color:#e75480;
+}
+
+.mission{
+text-align:center;
+font-size:17px;
+line-height:1.7;
+max-width:800px;
+margin:auto;
+}
+
+/* GRID CARDS */
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+margin-top:40px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+text-align:center;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h3{
+color:#e75480;
+}
+
+/* STORE SECTION */
+
+.store-box{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+margin-top:20px;
+}
+
+/* CTA */
+
+.cta{
+background:#ffe6f0;
+text-align:center;
+padding:50px;
+margin-top:40px;
+}
+
+.cta a{
+display:inline-block;
+margin-top:15px;
+padding:12px 25px;
+background:#e75480;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+}
+
+/* FOUNDER */
+
+.founder{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+align-items:center;
+margin-top:30px;
+}
+
+.founder img{
+width:100%;
+border-radius:12px;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+
+@media(max-width:768px){
+
+.founder{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:32px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- HERO -->
+<div class="hero">
+<div>
+<h1>About GiftWrapper</h1>
+<p>Creating memorable gifting experiences with love and creativity</p>
+</div>
+</div>
+
+
+
+<!-- OUR STORY -->
+<div class="container">
+
+<h2 class="section-title">Our Story</h2>
+
+<p class="mission">
+GiftWrapper was created with the idea that every gift should feel special and meaningful. 
+We believe that gifting is not just about products but about emotions, memories, and the joy of sharing love with others. 
+Our team carefully curates beautiful gift hampers and personalized items that bring smiles to every celebration. 
+From birthdays to weddings, we help people express their feelings through thoughtful gifting experiences.
+</p>
+
+</div>
+
+
+
+<!-- FOUNDER STORY -->
+
+<div class="container">
+
+<h2 class="section-title">Founder Story</h2>
+
+<div class="founder">
+
+<div>
+<img src="{{ url_for('static', filename='img/founder.jpeg') }}">
+</div>
+
+<div style="font-size:17px;line-height:1.7">
+
+<p>
+GiftWrapper began as a small idea driven by a passion for creativity and meaningful gifting. 
+Our founder believed that gifts should tell stories and create lasting memories.
+</p>
+
+<p>
+What started as a simple concept grew into a platform that combines creativity, thoughtful curation, 
+and modern technology to deliver unique hampers and gift products.
+</p>
+
+<p>
+Today, GiftWrapper continues to innovate by offering personalized gifts and AI-powered hamper recommendations 
+to make gifting easier and more joyful.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- CUSTOMER PROMISE -->
+
+<div class="container">
+
+<h2 class="section-title">Customer Promise</h2>
+
+<p class="mission">
+At GiftWrapper, we promise quality, creativity, and customer happiness in every order. 
+Each hamper is thoughtfully designed and beautifully packed to ensure a memorable gifting experience. 
+Our goal is to deliver not just products but moments of joy and appreciation.
+</p>
+
+</div>
+
+
+
+<!-- OUR VISION -->
+
+<div class="container">
+
+<h2 class="section-title">Our Vision</h2>
+
+<p class="mission">
+To become the most loved gifting platform where people can easily find meaningful and beautiful gifts for every occasion. 
+We aim to connect people through thoughtful presents and unforgettable gifting experiences.
+</p>
+
+</div>
+
+
+
+<!-- WHY CHOOSE US -->
+
+<div class="container">
+
+<h2 class="section-title">Why Choose GiftWrapper?</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>🎁 Premium Hampers</h3>
+<p>Beautifully curated gift hampers designed for every special moment.</p>
+</div>
+
+<div class="card">
+<h3>✨ Personalized Gifts</h3>
+<p>Add custom messages and photos to make gifts more meaningful.</p>
+</div>
+
+<div class="card">
+<h3>🤖 Smart AI Suggestions</h3>
+<p>Our AI recommends perfect hampers based on your occasion and preferences.</p>
+</div>
+
+<div class="card">
+<h3>🚚 Reliable Delivery</h3>
+<p>Safe packaging and fast delivery to ensure gifts arrive perfectly.</p>
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- OCCASIONS -->
+
+<div class="container">
+
+<h2 class="section-title">Occasions We Cover</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>🎂 Birthdays</h3>
+<p>Make birthdays unforgettable with creative hampers and surprise gifts.</p>
+</div>
+
+<div class="card">
+<h3>💍 Anniversaries</h3>
+<p>Celebrate love and memories with romantic gift collections.</p>
+</div>
+
+<div class="card">
+<h3>💒 Weddings</h3>
+<p>Elegant hampers designed for wedding celebrations.</p>
+</div>
+
+<div class="card">
+<h3>🎊 Festivals</h3>
+<p>Special festive hampers perfect for Diwali, Christmas and more.</p>
+</div>
+
+<div class="card">
+<h3>🏢 Corporate Gifts</h3>
+<p>Premium gifts for employees, clients and business partners.</p>
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- STORE LOCATIONS -->
+
+<div class="container">
+
+<h2 class="section-title">Our Store</h2>
+
+<div class="store-box">
+
+<p><b>📍 Address</b></p>
+
+<p>
+#1120C, 2nd Floor, Park Lane Building<br>
+Park Lane Road, Near Public College<br>
+Kottayam, Kerala – 686001
+</p>
+
+<p>📞 Phone: +91 6235301249</p>
+<p>📧 Email: giftwrapper00@gmail.com</p>
+
+</div>
+
+</div>
+
+
+
+<!-- CALL TO ACTION -->
+
+<div class="cta">
+
+<h2>Ready to Find the Perfect Gift?</h2>
+
+<p>Explore our beautiful hampers and personalized gifts today.</p>
+
+<a href="{{ url_for('products') }}">Browse Gifts</a>
+
+</div>
+
+
+
+</body>
+</html>

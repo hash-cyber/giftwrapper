@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Hamper Assistant</title>
+
+<style>
+body {
+    background:#f5f7fb;
+    font-family:Poppins, sans-serif;
+}
+
+.top-nav{
+    margin:20px;
+}
+.home-btn{
+    text-decoration:none;
+    background:#ff7f50;
+    color:white;
+    padding:8px 16px;
+    border-radius:8px;
+}
+
+.chat-container {
+    max-width:650px;
+    margin:20px auto;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.prompt-box{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding-bottom:10px;
+    margin-bottom:15px;
+}
+
+.prompt{
+    flex:0 0 auto;
+    background:#eef2ff;
+    padding:8px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    white-space:nowrap;
+    font-size:14px;
+}
+
+.chat-box {
+    height:400px;
+    overflow-y:auto;
+    padding:10px;
+}
+
+.message {
+    margin:10px 0;
+    padding:10px 14px;
+    border-radius:12px;
+    max-width:75%;
+}
+
+.bot { background:#eef2ff; }
+.user {
+    background:#ff7f50;
+    color:white;
+    margin-left:auto;
+}
+
+.input-area {
+    display:flex;
+    margin-top:10px;
+}
+
+input {
+    flex:1;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button {
+    padding:10px 15px;
+    margin-left:5px;
+    background:#ff7f50;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.typing {
+    font-style:italic;
+    color:gray;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-nav">
+    <a class="home-btn" href="/dashboard">🏠 Home</a>
+</div>
+
+<div class="chat-container">
+
+    <h3>🤖 GiftWrapper AI Assistant</h3>
+
+    <div class="prompt-box">
+        <div class="prompt" onclick="usePrompt(this)">🎁 Birthday gift for girlfriend under 2000</div>
+        <div class="prompt" onclick="usePrompt(this)">💎 Luxury wedding hamper above 3000</div>
+        <div class="prompt" onclick="usePrompt(this)">🎉 Cute gift for kids birthday</div>
+        <div class="prompt" onclick="usePrompt(this)">🏢 Corporate premium hamper under 1500</div>
+        <div class="prompt" onclick="usePrompt(this)">🎀 Anniversary gift for her under 2500</div>
+        <div class="prompt" onclick="usePrompt(this)">🧸 Baby gift hamper under 2000</div>
+    </div>
+
+    <div class="chat-box" id="chat"></div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Describe your perfect gift...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+</div>
+
+<script>
+
+let lastPrompt = "";
+const chat = document.getElementById("chat");
+
+function addMessage(text, sender){
+    const msg = document.createElement("div");
+    msg.className = "message " + sender;
+    msg.innerHTML = text;
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function botAsk(text){
+    addMessage("<span class='typing'>Typing...</span>", "bot");
+    setTimeout(()=>{ chat.lastChild.innerHTML = text; }, 800);
+}
+
+function usePrompt(el){
+    document.getElementById("userInput").value = el.innerText;
+}
+
+function sendMessage(){
+    const input = document.getElementById("userInput");
+    const value = input.value.trim();
+
+    if(!value) return;
+
+    lastPrompt = value;
+
+    addMessage(value, "user");
+    input.value = "";
+
+    botAsk("Finding best hamper for you... 🎁");
+
+    fetch("/ai_chat_fetch",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({ prompt:value })
+    })
+    .then(res=>res.json())
+    .then(showHamper)
+    .catch(()=>{
+        addMessage("⚠️ Something went wrong","bot");
+    });
+}
+
+function showHamper(data){
+    setTimeout(()=>{
+
+        if(data.status==="success"){
+
+            let itemsHTML = "";
+            data.items.forEach(item=>{
+                itemsHTML += `<li>${item}</li>`;
+            });
+
+            addMessage(`
+                <h4>${data.title}</h4>
+                <img src="/static/${data.image}" style="width:100%;border-radius:10px;">
+                <p>${data.description}</p>
+                <p><b>Price:</b> ₹${data.price}</p>
+                <ul>${itemsHTML}</ul>
+                <button onclick="addToCart('${data.id}')">🛒 Add to Cart</button>
+                <button onclick="regenerate()">🔄 Regenerate</button>
+            `,"bot");
+
+        } else {
+            addMessage(`No hamper found 😢 <br><button onclick="regenerate()">Try Again</button>`,"bot");
+        }
+
+    },1000);
+}
+
+function regenerate(){
+    if(!lastPrompt) return;
+
+    botAsk("Generating another option... 🎁");
+
+    fetch("/ai_chat_fetch",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({ prompt:lastPrompt })
+    })
+    .then(res=>res.json())
+    .then(showHamper);
+}
+
+function addToCart(id){
+    fetch('/add_to_cart',{
+        method:'POST',
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body:`id=ai_${id}`
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        alert(data.message);
+    });
+}
+
+botAsk("Hi 👋 Tell me what kind of gift you want!");
+
+</script>
+
+</body>
+</html>

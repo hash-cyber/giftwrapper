@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ type.capitalize() }} Hampers</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+body { font-family: Arial; padding: 20px; background: #fff8f5; }
+h2 { color: #ff7f50; text-align:center; margin-bottom: 30px; }
+
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    background: #ffe8e0;
+    border-radius: 15px;
+    padding: 20px;
+    width: 220px;
+    text-align:center;
+    cursor:pointer;
+    transition: 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.top-nav {
+    display:flex;
+    justify-content:flex-start;
+    margin-bottom:20px;
+}
+
+.home-btn {
+    text-decoration:none;
+    background:#ff7f50;
+    color:white;
+    padding:8px 16px;
+    border-radius:8px;
+}
+
+.filter-bar {
+    text-align:center;
+    margin-bottom:25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-nav">
+    <a class="home-btn" href="/products">Back</a>
+</div>
+
+<h2>{{ type.capitalize() }} Hampers</h2>
+
+<div class="filter-bar">
+<form method="GET">
+
+    <input type="hidden" name="type" value="{{ type }}">
+
+    <input type="text" name="search" placeholder="Search..."
+           value="{{ search }}">
+
+    <button type="submit">Search</button>
+
+    <select name="sort" onchange="this.form.submit()">
+        <option value="">Sort By</option>
+        <option value="low" {% if sort=='low' %}selected{% endif %}>Low → High</option>
+        <option value="high" {% if sort=='high' %}selected{% endif %}>High → Low</option>
+    </select>
+
+</form>
+</div>
+
+<div class="products-container">
+
+{% if products %}
+    {% for p in products %}
+        <div class="product-card"
+             onclick="window.location.href='/product_details/{{ p.id }}'">
+
+            <img src="{{ url_for('static', filename=p.image) if p.image else url_for('static', filename='img/default_hamper.png') }}">
+
+            <h3>{{ p.title }}</h3>
+            <p>₹{{ "%.2f"|format(p.price) }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p style="color:#888;">No products found</p>
+{% endif %}
+
+</div>
+
+<!-- PAGINATION -->
+<div style="text-align:center; margin-top:30px;">
+{% for i in range(1, total_pages+1) %}
+    <a href="?type={{ type }}&page={{ i }}&search={{ search }}"
+       style="margin:5px; padding:8px 12px; background:#ff7f50; color:white; text-decoration:none; border-radius:6px;">
+       {{ i }}
+    </a>
+{% endfor %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Success</title>
+
+<style>
+body {
+    background: #fff8f5;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.success-box {
+    margin-top: 100px;
+}
+
+.success-box h1 {
+    color: #4CAF50;
+}
+
+.success-box p {
+    color: #555;
+    font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="success-box">
+    <h1>🎉 Payment Successful!</h1>
+    <p>Transaction ID: <strong>{{ transaction_id }}</strong></p>
+    <p>Order ID: <strong>{{ order_id }}</strong></p>
+    <p>Thank you for shopping with GiftWrapper 💝</p>
+    <br>
+    <a href="/dashboard">Back to Dashboard</a>
+</div>
+
+</body>
+</html>

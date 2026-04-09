@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Products - GiftWrapper</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+body {
+    background:#fff8f5;
+    text-align:center;
+    padding:30px;
+}
+
+.category-container {
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    margin-top:40px;
+}
+
+.category-card {
+    background:#ffe8e0;
+    padding:30px;
+    width:220px;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.category-card:hover {
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+body {
+    color: #ff5c92; /* change this */
+}
+
+.top-nav{
+    display:flex;
+    justify-content:flex-start; /* THIS moves it to left */
+    padding:20px;
+}
+}
+
+.back-btn{
+    display:inline-block;
+    padding:10px 20px;
+    background:#ff7f50;
+    color:white;
+    text-decoration:none;
+    border-radius:25px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#ff5722;
+}
+
+</style>
+</head>
+
+<body>
+
+    <div class="top-nav">
+    <a href="/dashboard" class="back-btn">⬅ Back</a>
+</div>
+
+<h1>Select a Category 🎁</h1>
+<p class="page-subtitle">
+    Thoughtfully designed collections for every special moment
+</p>
+
+<div class="category-container">
+
+    <div class="category-card" onclick="goCategory('birthday')">
+        <h3>Birthday Hampers</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('wedding')">
+        <h3>Wedding Anniversary Hampers</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('kids')">
+        <h3>Hampers for Kids</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('him')">
+        <h3>For Him</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('her')">
+        <h3>For Her</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('bouquets')">
+        <h3>Bouquets</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('frames')">
+        <h3>Photo Frames</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('festival')">
+        <h3>Festival Hampers</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('chocolate')">
+        <h3>Chocolate Hampers</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('corporate')">
+        <h3>Corporate Hampers</h3>
+    </div>
+
+    <div class="category-card" onclick="goCategory('addons')">
+        <h3>Add-On Products</h3>
+    </div>
+
+</div>
+
+<script>
+function goCategory(type){
+    window.location.href = "/category?type=" + type;
+}
+</script>
+
+</body>
+</html>
